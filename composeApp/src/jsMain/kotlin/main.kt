@@ -15,7 +15,7 @@ import org.jetbrains.skiko.wasm.onWasmReady
 fun main() {
 
     onWasmReady {
-        CanvasBasedWindow("KmmApp2") {
+        CanvasBasedWindow("KmpApp2") {
             CompositionLocalProvider(
                 LocalImageLoader provides remember { generateImageLoader() },
             ) {
