@@ -1,4 +1,5 @@
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.gestures.draggable
 import androidx.compose.foundation.gestures.rememberDraggableState
@@ -30,6 +31,7 @@ import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.SearchBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
@@ -38,22 +40,15 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.seiko.imageloader.rememberImagePainter
+import data.Product
 import kotlinx.coroutines.launch
+import list.ListComponent
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 
-@OptIn(ExperimentalResourceApi::class)
-@Composable
-fun App() {
-    MaterialTheme {
-        AppContent(homeViewModel = HomeViewModel())
-    }
-}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AppContent(homeViewModel: HomeViewModel) {
-
-    val products = homeViewModel.products.collectAsState()
+fun AppContent(products: State<ListComponent.Model>, onItemClicked: (Product) -> Unit) {
 
     BoxWithConstraints {
         val scope = this
@@ -79,11 +74,13 @@ fun AppContent(homeViewModel: HomeViewModel) {
                 columns = GridCells.Fixed(cols),
                 state = scrollState,
                 contentPadding = PaddingValues(16.dp),
-                modifier = Modifier.draggable(orientation = Orientation.Vertical, state = rememberDraggableState { delta ->
-                    coroutineScope.launch {
-                        scrollState.scrollBy(-delta)
-                    }
-                })
+                modifier = Modifier.draggable(
+                    orientation = Orientation.Vertical,
+                    state = rememberDraggableState { delta ->
+                        coroutineScope.launch {
+                            scrollState.scrollBy(-delta)
+                        }
+                    })
             ) {
 
                 item(span = { GridItemSpan(cols) }) {
@@ -110,12 +107,14 @@ fun AppContent(homeViewModel: HomeViewModel) {
 
 
                 items(
-                    items = products.value,
+                    items = products.value.items,
                     key = { product -> product.id.toString() }) { product ->
 
                     Card(
                         shape = RoundedCornerShape(15.dp),
-                        modifier = Modifier.padding(8.dp).fillMaxWidth(),
+                        modifier = Modifier.padding(8.dp).fillMaxWidth().clickable {
+                            onItemClicked(product)
+                        },
                         elevation = 2.dp
                     ) {
                         Column(

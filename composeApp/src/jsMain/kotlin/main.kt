@@ -2,14 +2,19 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.remember
 import androidx.compose.ui.ExperimentalComposeUiApi
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.window.CanvasBasedWindow
 import androidx.compose.ui.window.Window
+import com.arkivanov.decompose.DefaultComponentContext
+import com.arkivanov.essenty.lifecycle.LifecycleRegistry
 import com.seiko.imageloader.ImageLoader
 import com.seiko.imageloader.LocalImageLoader
 import com.seiko.imageloader.component.setupDefaultComponents
 import com.seiko.imageloader.defaultImageResultMemoryCache
 import okio.FileSystem
 import org.jetbrains.skiko.wasm.onWasmReady
+import root.DefaultRootComponent
+import root.RootContent
 
 @OptIn(ExperimentalComposeUiApi::class)
 fun main() {
@@ -19,7 +24,13 @@ fun main() {
             CompositionLocalProvider(
                 LocalImageLoader provides remember { generateImageLoader() },
             ) {
-                App()
+                val homeViewModel = HomeViewModel()
+                val root =
+                    DefaultRootComponent(
+                        componentContext = DefaultComponentContext(LifecycleRegistry()),
+                        homeViewModel
+                    )
+                RootContent(root, modifier = Modifier)
             }
         }
     }
