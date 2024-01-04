@@ -1,5 +1,6 @@
 package root
 
+import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.key.Key.Companion.P
@@ -15,16 +16,19 @@ fun RootContent(
     modifier: Modifier = Modifier
 ) {
 
-    Children(
-        stack = component.stack,
-        modifier = modifier,
-        animation = stackAnimation(fade())
-    ) {
-        when(val child = it.instance) {
-            is RootComponent.Child.ListChild -> ListContent(child.component)
-            is RootComponent.Child.DetailChild -> DetailContent(child.component)
+    MaterialTheme {
+        Children(
+            stack = component.stack,
+            modifier = modifier,
+            animation = stackAnimation(fade())
+        ) {
+            when(val child = it.instance) {
+                is RootComponent.Child.ListChild -> ListContent(child.component)
+                is RootComponent.Child.DetailChild -> DetailContent(child.component)
+            }
         }
     }
+
 
 }
 

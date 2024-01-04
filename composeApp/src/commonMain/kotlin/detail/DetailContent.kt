@@ -1,5 +1,6 @@
 package detail
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -16,6 +17,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Build
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
@@ -34,31 +36,30 @@ fun DetailContent(
 
     val product = component.model.subscribeAsState()
 
-    Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
-        Scaffold(
-            topBar = {
-                TopAppBar(
-                    modifier = Modifier.windowInsetsPadding(WindowInsets(0.dp)),
-                    title = { Text("Product Detail") },
-                    navigationIcon = {
-                        IconButton(onClick = {
-                            component.onBackPressed()
-                        }) {
-                            Icon(Icons.Default.ArrowBack, contentDescription = "Go Back")
-                        }
+    Scaffold(
+        modifier = Modifier,
+        containerColor = MaterialTheme.colorScheme.surface,
+        topBar = {
+            TopAppBar(
+                modifier = Modifier.windowInsetsPadding(WindowInsets(0.dp)),
+                title = { Text("Product Detail") },
+                navigationIcon = {
+                    IconButton(onClick = {
+                        component.onBackPressed()
+                    }) {
+                        Icon(Icons.Default.ArrowBack, contentDescription = "Go Back")
                     }
-                )
-            }
-        ) {
+                }
+            )
+        }
+    ) {
 
-            Column(
-                verticalArrangement = Arrangement.Center,
-                modifier = Modifier.fillMaxHeight().fillMaxWidth().padding(16.dp)
-            ) {
-                Text("Product title: ${product.value.item.title}")
-                Text("Product Desc: ${product.value.item.description}")
-            }
+        Column(
+            verticalArrangement = Arrangement.Center,
+            modifier = Modifier.fillMaxHeight().fillMaxWidth().padding(16.dp)
+        ) {
+            Text("Product title: ${product.value.item.title}")
+            Text("Product Desc: ${product.value.item.description}")
         }
     }
-
 }
