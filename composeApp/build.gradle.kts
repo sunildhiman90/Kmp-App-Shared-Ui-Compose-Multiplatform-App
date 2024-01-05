@@ -43,6 +43,9 @@ kotlin {
         iosTarget.binaries.framework {
             baseName = "ComposeApp"
             isStatic = true
+
+            export("com.arkivanov.decompose:decompose:2.2.2-compose-experimental")
+            export("com.arkivanov.essenty:lifecycle:1.3.0")
         }
     }
 
@@ -93,6 +96,10 @@ kotlin {
 
         iosMain.dependencies {
             implementation(libs.ktor.client.darwin)
+
+            api("com.arkivanov.decompose:decompose:2.2.2-compose-experimental")
+            api("com.arkivanov.essenty:lifecycle:1.3.0")
+
         }
     }
 }

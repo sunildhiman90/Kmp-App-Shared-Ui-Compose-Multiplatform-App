@@ -14,38 +14,44 @@ import platform.Foundation.NSCachesDirectory
 import platform.Foundation.NSSearchPathForDirectoriesInDomains
 import platform.Foundation.NSUserDomainMask
 import root.DefaultRootComponent
+import root.RootComponent
 import root.RootContent
 
-fun MainViewController() = ComposeUIViewController {
+fun MainViewController(rootComponent: RootComponent) = ComposeUIViewController {
     CompositionLocalProvider(
         LocalImageLoader provides remember { generateImageLoader() },
     ) {
-        val lifecycle = LifecycleRegistry()
-        lifecycle.subscribe(LifecycleCallbacksImpl())
-        val homeViewModel = HomeViewModel()
-        val root =
-            DefaultRootComponent(
-                componentContext = DefaultComponentContext(LifecycleRegistry()),
-                homeViewModel
-            )
-        RootContent(root, modifier = Modifier)
+//        val lifecycle = LifecycleRegistry()
+//        lifecycle.subscribe(LifecycleCallbacksImpl())
+//        val homeViewModel = HomeViewModel()
+//        val root =
+//            DefaultRootComponent(
+//                componentContext = DefaultComponentContext(LifecycleRegistry()),
+//                homeViewModel
+//            )
+        RootContent(rootComponent, modifier = Modifier)
     }
 }
 
 class LifecycleCallbacksImpl: Lifecycle.Callbacks {
-    override fun onCreate() {
+    override fun onResume() {
         super.onCreate()
-        println("onCreate")
+        println("Compose onResume")
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        println("onDestroy")
+        println("Compose onDestroy")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        println("Compose onStop")
     }
 
     override fun onPause() {
         super.onPause()
-        println("onPause")
+        println("Compose onPause")
     }
 
 }
