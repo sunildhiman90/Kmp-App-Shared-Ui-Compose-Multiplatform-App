@@ -17,6 +17,7 @@ import com.seiko.imageloader.cache.memory.maxSizePercent
 import com.seiko.imageloader.component.setupDefaultComponents
 import com.seiko.imageloader.defaultImageResultMemoryCache
 import com.seiko.imageloader.option.androidContext
+import database.DriverFactory
 import okio.Path.Companion.toOkioPath
 import org.koin.android.ext.android.inject
 import org.koin.core.context.loadKoinModules
@@ -30,6 +31,7 @@ class MainActivity : ComponentActivity() {
 
     private val modules = module {
         single<ComponentContext> { defaultComponentContext() }
+        single { DriverFactory(applicationContext) }
     }
 
     init {

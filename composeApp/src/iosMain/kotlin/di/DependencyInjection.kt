@@ -3,6 +3,7 @@ package di
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.DefaultComponentContext
 import com.arkivanov.essenty.lifecycle.LifecycleRegistry
+import database.DriverFactory
 import org.koin.core.Koin
 import org.koin.dsl.module
 import root.RootComponent
@@ -10,6 +11,7 @@ import root.RootComponent
 val iosModule = module {
     single { LifecycleRegistry() }
     single<ComponentContext> { DefaultComponentContext(lifecycle = get<LifecycleRegistry>()) }
+    single { DriverFactory() }
 }
 
 fun initKoinIOS() = initKoin(additionalModules = listOf(iosModule))
