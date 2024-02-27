@@ -14,6 +14,8 @@ val iosModule = module {
     single { DriverFactory() }
 }
 
+
+
 fun initKoinIOS() = initKoin(additionalModules = listOf(iosModule))
 
 val Koin.rootComponent: RootComponent
