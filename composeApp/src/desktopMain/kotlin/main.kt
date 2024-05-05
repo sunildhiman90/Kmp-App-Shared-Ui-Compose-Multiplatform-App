@@ -1,16 +1,28 @@
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
+import com.arkivanov.decompose.DefaultComponentContext
+import com.arkivanov.essenty.lifecycle.LifecycleRegistry
 import com.seiko.imageloader.ImageLoader
 import com.seiko.imageloader.component.setupDefaultComponents
 import com.seiko.imageloader.defaultImageResultMemoryCache
 import okio.Path.Companion.toOkioPath
+import root.DefaultRootComponent
+import root.RootContent
 import java.io.File
 
 fun main() = application {
     Window(onCloseRequest = ::exitApplication, title = "KmpApp2") {
-        App()
+        val homeViewModel = HomeViewModel()
+        val root =
+            DefaultRootComponent(
+                componentContext = DefaultComponentContext(LifecycleRegistry()),
+                homeViewModel
+            )
+        RootContent(root, modifier = Modifier)
+
     }
 }
 
@@ -65,5 +77,5 @@ private const val ApplicationName = "KmmAppExample2"
 @Preview
 @Composable
 fun AppDesktopPreview() {
-    App()
+    //App()
 }

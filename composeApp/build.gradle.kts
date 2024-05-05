@@ -6,7 +6,7 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsCompose)
 
-    kotlin("plugin.serialization") version "1.9.21"
+    kotlin("plugin.serialization") version "1.9.21" //decompose step2
 }
 
 kotlin {
@@ -52,6 +52,11 @@ kotlin {
         androidMain.dependencies {
             implementation(libs.compose.ui.tooling.preview)
             implementation(libs.androidx.activity.compose)
+
+            //decompose step3
+            implementation("com.arkivanov.decompose:decompose:2.2.2-compose-experimental")
+            implementation("com.arkivanov.decompose:extensions-compose-jetbrains:2.2.2-compose-experimental")
+
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -73,6 +78,10 @@ kotlin {
 
             api(libs.image.loader)
 
+
+            implementation("com.arkivanov.decompose:decompose:2.2.2-compose-experimental")
+            implementation("com.arkivanov.decompose:extensions-compose-jetbrains:2.2.2-compose-experimental")
+            //decompose step1
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
