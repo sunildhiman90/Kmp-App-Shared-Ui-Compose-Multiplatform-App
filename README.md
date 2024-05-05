@@ -1,14 +1,35 @@
-This is a Kotlin Multiplatform project targeting Android, iOS, Desktop.
 
-* `/composeApp` is for code that will be shared across your Compose Multiplatform applications.
-  It contains several subfolders:
-  - `commonMain` is for code that’s common for all targets.
-  - Other folders are for Kotlin code that will be compiled for only the platform indicated in the folder name.
-    For example, if you want to use Apple’s CoreCrypto for the iOS part of your Kotlin app,
-    `iosMain` would be the right folder for such calls.
+# KMP App Shared UI Compose Multiplatform App
 
-* `/iosApp` contains iOS applications. Even if you’re sharing your UI with Compose Multiplatform, 
-  you need this entry point for your iOS app. This is also where you should add SwiftUI code for your project.
+This app is an app built using Kotlin Multiplatform using Jetpack Compose based UI Framework Compose Multiplatform for sharing the UI between Android, iOS, Web and Desktop all platforms. 
+It demonstrates the use of Koin for Dependency Injection, Ktor for Networking, SQLDelight for Persitence in Kotlin Multiplatform for Android, iOS, Web and Desktop platforms. It features a simple Ecommerce App HomePage and Detail Screen(DETAIL SCREEN UI NOT DONE).
+
+## Libraries used
 
 
-Learn more about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)…
+* [Kotlin Multiplatform](https://www.jetbrains.com/kotlin-multiplatform/)
+* [Compose Multiplatform](https://www.jetbrains.com/lp/compose-multiplatform/)
+* [Koin](https://github.com/InsertKoinIO/koin)
+* [Decompose](https://github.com/arkivanov/Decompose)
+* [SQLDelight](https://github.com/cashapp/sqldelight)
+* [KTOR Client](https://ktor.io/docs/client-create-new-application.html)
+
+
+## Pre-requisites
+
+* Java JDK 17+
+* Latest stable version of Android Studio IDE
+* Latest XCode (for iOS)
+* Kotlin Multiplatform Plugin in Android Studio
+
+## Screenshot
+
+#### Android
+<img src="https://github.com/sunildhiman90/Kmp-App-Shared-Ui-Compose-Multiplatform-App/blob/main/Screenshot_20231209_124032%20android.png" data-canonical-src="https://github.com/sunildhiman90/Kmp-App-Shared-Ui-Compose-Multiplatform-App/blob/main/Screenshot_20231209_124032%20android.png" width="200" height="400" />
+
+
+
+## Setup
+
+* Clone this repository.
+* Open in the latest version of Android Studio and You are ready to Go.
