@@ -1,7 +1,7 @@
 
 # KMP App Shared UI Compose Multiplatform App
 
-This app is an app built using Kotlin Multiplatform using Jetpack Compose based UI Framework Compose Multiplatform for sharing the UI between Android, iOS, Web and Desktop all platforms. 
+This app is an app built just for learning using Kotlin Multiplatform using Jetpack Compose based UI Framework Compose Multiplatform for sharing the UI between Android, iOS, Web and Desktop all platforms. 
 It demonstrates the use of Koin for Dependency Injection, Ktor for Networking, SQLDelight for Persitence and Decompose for navigation and business logic components in Kotlin Multiplatform for Android, iOS, Web and Desktop platforms. It features a simple Ecommerce App HomePage and Detail Screen(DETAIL SCREEN UI NOT DONE).
 
 ## Libraries used
