@@ -12,6 +12,9 @@ import okio.FileSystem
 import org.jetbrains.skiko.wasm.onWasmReady
 import root.RootComponent
 import root.RootContent
+import scrollbar.MainVerticalLazyGridScrollbar
+import scrollbar.MainVerticalLazyListScrollbar
+import scrollbar.MainVerticalScrollbar
 
 
 val koin = startKoinJs().koin
@@ -25,7 +28,19 @@ fun main() {
                 LocalImageLoader provides remember { generateImageLoader() },
             ) {
                 val root = koin.get<RootComponent>()
-                RootContent(root, modifier = Modifier)
+                RootContent(
+                    root,
+                    modifier = Modifier,
+                    lazyGridScrollBar = { scrollState, modifier ->
+                        MainVerticalLazyGridScrollbar(scrollState, modifier)
+                    },
+                    lazyListScrollBar = { scrollState, modifier ->
+                        MainVerticalLazyListScrollbar(scrollState, modifier)
+                    },
+                    scrollBar = { scrollState, modifier ->
+                        MainVerticalScrollbar(scrollState, modifier)
+                    },
+                )
             }
         }
     }

@@ -90,6 +90,8 @@ kotlin {
 
             //koin step1
             implementation("io.insert-koin:koin-core:3.5.3")
+
+            implementation("dev.chrisbanes.material3:material3-window-size-class-multiplatform:0.3.1")
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
