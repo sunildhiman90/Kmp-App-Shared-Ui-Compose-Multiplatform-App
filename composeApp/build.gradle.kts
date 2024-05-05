@@ -43,6 +43,9 @@ kotlin {
         iosTarget.binaries.framework {
             baseName = "ComposeApp"
             isStatic = true
+
+            export("com.arkivanov.decompose:decompose:2.2.2-compose-experimental")
+            export("com.arkivanov.essenty:lifecycle:1.3.0")
         }
     }
 
@@ -82,6 +85,9 @@ kotlin {
             implementation("com.arkivanov.decompose:decompose:2.2.2-compose-experimental")
             implementation("com.arkivanov.decompose:extensions-compose-jetbrains:2.2.2-compose-experimental")
             //decompose step1
+
+            //koin step1
+            implementation("io.insert-koin:koin-core:3.5.3")
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
@@ -89,10 +95,18 @@ kotlin {
 
         androidMain.dependencies {
             implementation(libs.ktor.client.android)
+
+            //koin step2
+            implementation("io.insert-koin:koin-android:3.5.3")
+
         }
 
         iosMain.dependencies {
             implementation(libs.ktor.client.darwin)
+
+            api("com.arkivanov.decompose:decompose:2.2.2-compose-experimental")
+            api("com.arkivanov.essenty:lifecycle:1.3.0")
+
         }
     }
 }
