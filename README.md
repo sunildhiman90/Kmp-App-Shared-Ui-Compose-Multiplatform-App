@@ -22,11 +22,19 @@ It demonstrates the use of Koin for Dependency Injection, Ktor for Networking, S
 * Latest XCode (for iOS)
 * Kotlin Multiplatform Plugin in Android Studio
 
-## Screenshot
+## Screenshots
 
 #### Android
 <img src="https://github.com/sunildhiman90/Kmp-App-Shared-Ui-Compose-Multiplatform-App/blob/main/Screenshot_20231209_124032%20android.png" data-canonical-src="https://github.com/sunildhiman90/Kmp-App-Shared-Ui-Compose-Multiplatform-App/blob/main/Screenshot_20231209_124032%20android.png" width="200" height="400" />
 
+#### iOS
+<img src="https://github.com/sunildhiman90/Kmp-App-Shared-Ui-Compose-Multiplatform-App/blob/main/Screenshot%20iOS.png" data-canonical-src="https://github.com/sunildhiman90/Kmp-App-Shared-Ui-Compose-Multiplatform-App/blob/main/Screenshot%20iOS.png" width="200" height="400" />
+
+#### Web App
+<img src="https://github.com/sunildhiman90/Kmp-App-Shared-Ui-Compose-Multiplatform-App/blob/main/Screenshot%20Web.png" data-canonical-src="https://github.com/sunildhiman90/Kmp-App-Shared-Ui-Compose-Multiplatform-App/blob/main/Screenshot%20Web.png" width="500" height="400" />
+
+#### Desktop
+<img src="https://github.com/sunildhiman90/Kmp-App-Shared-Ui-Compose-Multiplatform-App/blob/main/Screenshot%20Desktop%20.png" data-canonical-src="https://github.com/sunildhiman90/Kmp-App-Shared-Ui-Compose-Multiplatform-App/blob/main/Screenshot%20Desktop%20.png" width="500" height="400" />
 
 
 ## Setup
