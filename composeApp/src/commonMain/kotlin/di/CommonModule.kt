@@ -2,14 +2,24 @@ package di
 
 import HomeRepository
 import HomeViewModel
+import database.datasource.ProductsLocalDataSource
+import database.datasource.ProductsRemoteDataSource
 import org.koin.dsl.module
 import root.DefaultRootComponent
 import root.RootComponent
 
-fun commonModule() = networkModule() + module {
+fun commonModule() = cacheModule() + networkModule() + module {
 
     single {
-        HomeRepository(get())
+        ProductsLocalDataSource(get())
+    }
+
+    single {
+        ProductsRemoteDataSource(get())
+    }
+
+    single {
+        HomeRepository(get(), get())
     }
 
     single {
