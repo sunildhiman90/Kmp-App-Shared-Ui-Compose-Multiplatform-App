@@ -17,9 +17,24 @@ kotlin {
             }
         }
     }
-    
+
     jvm("desktop")
-    
+
+    //Step1
+    js(IR) {
+        moduleName = "KmpApp2"
+        browser() {
+
+            //Tool bundler for converting kotlin code to js code
+            commonWebpackConfig() {
+                outputFileName = "KmpApp2.js"
+                devServer = (devServer
+                    ?: org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackConfig.DevServer()).copy()
+            }
+            binaries.executable() //it will generate executable js files
+        }
+    }
+
     listOf(
         iosX64(),
         iosArm64(),
@@ -30,10 +45,10 @@ kotlin {
             isStatic = true
         }
     }
-    
+
     sourceSets {
         val desktopMain by getting
-        
+
         androidMain.dependencies {
             implementation(libs.compose.ui.tooling.preview)
             implementation(libs.androidx.activity.compose)
@@ -117,4 +132,10 @@ compose.desktop {
             packageVersion = "1.0.0"
         }
     }
+}
+
+
+//Step3
+compose.experimental {
+    web.application {}
 }
