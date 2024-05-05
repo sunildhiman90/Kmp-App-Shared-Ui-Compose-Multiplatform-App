@@ -5,12 +5,12 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-class HomeViewModel(
-    private val homeRepository: HomeRepository
-) : ViewModel() {
+class HomeViewModel : ViewModel() {
 
     private val _products = MutableStateFlow<List<Product>>(listOf())
     val products = _products.asStateFlow()
+
+    private val homeRepository = HomeRepository()
 
     init {
         viewModelScope.launch {

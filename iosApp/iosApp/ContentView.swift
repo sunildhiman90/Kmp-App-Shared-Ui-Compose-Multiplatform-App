@@ -3,21 +3,16 @@ import SwiftUI
 import ComposeApp
 
 struct ComposeView: UIViewControllerRepresentable {
-    
-    let rootComponet: RootComponent
-    
     func makeUIViewController(context: Context) -> UIViewController {
-        MainViewControllerKt.MainViewController(rootComponent: rootComponet)
+        MainViewControllerKt.MainViewController()
     }
 
     func updateUIViewController(_ uiViewController: UIViewController, context: Context) {}
 }
 
 struct ContentView: View {
-    let rootComponet: RootComponent
-    
     var body: some View {
-        ComposeView(rootComponet: rootComponet)
+        ComposeView()
                 .ignoresSafeArea(.keyboard) // Compose has own keyboard handler
     }
 }
