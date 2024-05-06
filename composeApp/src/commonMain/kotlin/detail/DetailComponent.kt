@@ -1,15 +1,12 @@
 package detail
 
-import HomeViewModel
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.value.MutableValue
 import com.arkivanov.decompose.value.Value
 import data.Product
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import list.ListComponent
 
 interface DetailComponent {
     val model: Value<Model>

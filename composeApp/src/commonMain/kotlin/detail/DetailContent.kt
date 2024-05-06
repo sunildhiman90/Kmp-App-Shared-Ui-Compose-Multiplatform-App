@@ -1,31 +1,40 @@
 package detail
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.windowInsetsPadding
+import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.Build
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.input.key.Key.Companion.P
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.arkivanov.decompose.extensions.compose.jetbrains.subscribeAsState
+import com.seiko.imageloader.rememberImagePainter
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -42,7 +51,14 @@ fun DetailContent(
         topBar = {
             TopAppBar(
                 modifier = Modifier.windowInsetsPadding(WindowInsets(0.dp)),
-                title = { Text("Product Detail") },
+                title = {
+                    Text(
+                        product.value.item.title.toString(),
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                        style = MaterialTheme.typography.titleLarge
+                    )
+                },
                 navigationIcon = {
                     IconButton(onClick = {
                         component.onBackPressed()
@@ -54,12 +70,43 @@ fun DetailContent(
         }
     ) {
 
+        val scrollState = rememberScrollState()
         Column(
             verticalArrangement = Arrangement.Center,
-            modifier = Modifier.fillMaxHeight().fillMaxWidth().padding(16.dp)
+            modifier = Modifier.padding(it).verticalScroll(scrollState).fillMaxSize().padding(16.dp)
         ) {
-            Text("Product title: ${product.value.item.title}")
-            Text("Product Desc: ${product.value.item.description}")
+            val painter = rememberImagePainter(url = product.value.item.image.toString())
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth().height(300.dp)
+            ) {
+                Image(
+                    painter,
+                    modifier = Modifier.fillMaxWidth().height(300.dp).padding(8.dp),
+                    contentDescription = product.value.item.title
+                )
+            }
+
+            Text(
+                "${product.value.item.price.toString()} INR ",
+                style = MaterialTheme.typography.titleLarge.copy(
+                    fontWeight = FontWeight.Bold
+                )
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+            Text(
+                "${product.value.item.title}", style = MaterialTheme.typography.titleMedium.copy(
+                    fontWeight = FontWeight.Bold
+                )
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+
+            Text(
+                "Description:", style = MaterialTheme.typography.titleMedium.copy(
+                    fontWeight = FontWeight.Bold
+                )
+            )
+            Text("Description: ${product.value.item.description}")
         }
     }
 }
