@@ -1,6 +1,5 @@
 package com.codingambitions.kmpapp2
 
-import HomeViewModel
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -22,7 +21,6 @@ import okio.Path.Companion.toOkioPath
 import org.koin.android.ext.android.inject
 import org.koin.core.context.loadKoinModules
 import org.koin.dsl.module
-import root.DefaultRootComponent
 import root.RootComponent
 import root.RootContent
 

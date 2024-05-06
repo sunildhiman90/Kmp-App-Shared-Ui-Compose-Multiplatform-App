@@ -1,5 +1,6 @@
 package root
 
+import HomeRepository
 import HomeViewModel
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.router.stack.ChildStack
@@ -34,7 +35,7 @@ interface RootComponent {
 
 class DefaultRootComponent(
     private val componentContext: ComponentContext,
-    private val homeViewModel: HomeViewModel,
+    private val homeRepository: HomeRepository
 ) : RootComponent, ComponentContext by componentContext {
 
     private val navigation = StackNavigation<Config>()
@@ -52,7 +53,7 @@ class DefaultRootComponent(
     private fun childFactory(config: Config, componentContext: ComponentContext): RootComponent.Child {
        return when (config) {
             is Config.List -> RootComponent.Child.ListChild(
-                DefaultListComponent(componentContext,homeViewModel) { item ->
+                DefaultListComponent(componentContext, homeRepository) { item ->
                     navigation.push(Config.Detail(item))
                     //it will change the content to Detail
                 }

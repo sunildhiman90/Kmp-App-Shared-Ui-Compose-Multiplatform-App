@@ -29,7 +29,7 @@ fun commonModule() = cacheModule() + networkModule() + module {
     single<RootComponent> {
         DefaultRootComponent(
             componentContext = get(),
-            homeViewModel = get()
+            homeRepository = get()
         )
     }
 

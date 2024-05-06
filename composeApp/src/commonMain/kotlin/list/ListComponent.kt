@@ -1,5 +1,6 @@
 package list
 
+import HomeRepository
 import HomeViewModel
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.value.MutableValue
@@ -8,6 +9,7 @@ import data.Product
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 interface ListComponent {
@@ -22,7 +24,7 @@ interface ListComponent {
 
 class DefaultListComponent(
     private val componentContext: ComponentContext,
-    private val homeViewModel: HomeViewModel,
+    private val homeRepository: HomeRepository,
     private val onItemSelected: (item: Product) -> Unit
 ) : ListComponent, ComponentContext by componentContext {
 
@@ -34,8 +36,8 @@ class DefaultListComponent(
 
     init {
         CoroutineScope(Dispatchers.Default).launch {
-            homeViewModel.products.collect {
-                _model.value = ListComponent.Model(items = it)
+            homeRepository.getProducts().collect { products ->
+                _model.value =  ListComponent.Model(items = products)
             }
         }
     }
