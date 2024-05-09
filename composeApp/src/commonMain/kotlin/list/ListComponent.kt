@@ -2,12 +2,15 @@ package list
 
 import HomeRepository
 import HomeViewModel
+import androidx.compose.ui.input.key.Key.Companion.P
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.value.MutableValue
 import com.arkivanov.decompose.value.Value
+import com.arkivanov.essenty.lifecycle.Lifecycle
 import data.Product
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -34,13 +37,26 @@ class DefaultListComponent(
         onItemSelected(item)
     }
 
+    val scope = CoroutineScope(Dispatchers.Default)
+
     init {
-        CoroutineScope(Dispatchers.Default).launch {
+
+        scope.launch {
             homeRepository.getProducts().collect { products ->
                 _model.value =  ListComponent.Model(items = products)
             }
         }
+
+
+        lifecycle.subscribe(object : Lifecycle.Callbacks {
+            override fun onDestroy() {
+                super.onDestroy()
+                scope.cancel()
+            }
+        })
+
     }
+
 
 
 }
