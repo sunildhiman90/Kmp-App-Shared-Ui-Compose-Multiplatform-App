@@ -13,6 +13,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 
 interface ListComponent {
@@ -61,7 +62,11 @@ class DefaultListComponent(
         lifecycle.subscribe(object : Lifecycle.Callbacks {
             override fun onDestroy() {
                 super.onDestroy()
-                scope.cancel()
+                println("Lifecycle onDestroy")
+                if (scope.isActive) {
+                    println("Lifecycle onDestroy: scope cancelled")
+                    scope.cancel()
+                }
             }
         })
     }
