@@ -41,22 +41,30 @@ class DefaultListComponent(
 
     init {
 
-        scope.launch {
+        val job = scope.launch {
             homeRepository.getProducts().collect { products ->
                 _model.value =  ListComponent.Model(items = products)
             }
         }
 
+        job.invokeOnCompletion {
+            println("Job completed: scope cancelled")
+            scope.cancel()
+        }
 
+        subscribeLifecycleCallbacks()
+
+    }
+
+    private fun subscribeLifecycleCallbacks() {
+        //This can be safe check if anyhow its not cancelled, just cancel it from here
         lifecycle.subscribe(object : Lifecycle.Callbacks {
             override fun onDestroy() {
                 super.onDestroy()
                 scope.cancel()
             }
         })
-
     }
-
 
 
 }
