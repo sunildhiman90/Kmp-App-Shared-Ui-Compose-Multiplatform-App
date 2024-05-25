@@ -7,7 +7,7 @@ import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.grid.LazyGridState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.arkivanov.decompose.extensions.compose.jetbrains.subscribeAsState
+import com.arkivanov.decompose.extensions.compose.subscribeAsState
 
 
 @Composable
