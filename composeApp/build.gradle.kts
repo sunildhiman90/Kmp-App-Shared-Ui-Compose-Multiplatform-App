@@ -1,14 +1,16 @@
 import org.jetbrains.compose.ExperimentalComposeLibrary
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
+import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsCompose)
 
-    kotlin("plugin.serialization") version "2.0.0" //decompose step2
+    kotlin("plugin.serialization") version libs.versions.kotlin //decompose step2
 
-    id("app.cash.sqldelight") version "2.0.1" //sqldelight step1
+    id("app.cash.sqldelight") version libs.versions.sqlite.driver //sqldelight step1
 
     //for Kotlin 2.0
     alias(libs.plugins.compose.compiler)
@@ -16,12 +18,18 @@ plugins {
 
 kotlin {
     androidTarget {
-        compilations.all {
-            kotlinOptions {
-                jvmTarget = "1.8"
-            }
+        @OptIn(ExperimentalKotlinGradlePluginApi::class)
+        compilerOptions {
+            jvmTarget.set(JvmTarget.JVM_1_8)
+            freeCompilerArgs.add("-opt-in=kotlin.RequiresOptIn")
         }
+//        compilations.all {
+//            kotlinOptions {
+//                jvmTarget = "1.8"
+//            }
+//        }
     }
+
 
     jvm("desktop")
 
@@ -49,8 +57,8 @@ kotlin {
             baseName = "ComposeApp"
             isStatic = true
 
-            export("com.arkivanov.decompose:decompose:3.0.0")
-            export("com.arkivanov.essenty:lifecycle:2.0.0")
+            export(libs.com.arkivanov.decompose.decompose)
+            export(libs.essenty.lifecycle)
         }
     }
 
@@ -115,7 +123,7 @@ kotlin {
             implementation(libs.ktor.client.darwin)
 
             api(libs.com.arkivanov.decompose.decompose)
-            api(libs.lifecycle)
+            api(libs.essenty.lifecycle)
 
             implementation(libs.native.driver)
 
@@ -124,7 +132,7 @@ kotlin {
         jsMain.dependencies {
 
 
-            implementation(npm("@cashapp/sqldelight-sqljs-worker", "2.0.1"))
+            implementation(npm("@cashapp/sqldelight-sqljs-worker", libs.versions.sqlite.driver.get()))
             implementation(npm("sql.js", "1.8.0"))
             implementation(libs.web.worker.driver)
             implementation(devNpm("copy-webpack-plugin", "9.1.0"))

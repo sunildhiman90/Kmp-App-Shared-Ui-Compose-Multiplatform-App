@@ -18,3 +18,4 @@ captures
 /iosApp/iosApp.xcodeproj/project.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist
 /.kotlin/
 
+/kotlin-js-store/yarn.lock
