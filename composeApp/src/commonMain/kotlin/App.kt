@@ -26,17 +26,18 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Card
-import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CardElevation
+import androidx.compose.material3.Icon
+import androidx.compose.material3.Text
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SearchBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -48,7 +49,6 @@ import data.Product
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import list.ListComponent
-import org.jetbrains.compose.resources.ExperimentalResourceApi
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -112,92 +112,99 @@ private fun ListUi(
     products: State<ListComponent.Model>,
     onItemClicked: (Product) -> Unit
 ) {
-    LazyVerticalGrid(
-        columns = GridCells.Fixed(cols),
-        state = scrollState,
-        contentPadding = PaddingValues(16.dp),
-        modifier = Modifier.draggable(
-            orientation = Orientation.Vertical,
-            state = rememberDraggableState { delta ->
-                coroutineScope.launch {
-                    scrollState.scrollBy(-delta)
-                }
-            })
+    Scaffold(
+        modifier = Modifier,
+        containerColor = androidx.compose.material3.MaterialTheme.colorScheme.background,
     ) {
+        LazyVerticalGrid(
+            columns = GridCells.Fixed(cols),
+            state = scrollState,
+            contentPadding = PaddingValues(16.dp),
+            modifier = Modifier.draggable(
+                orientation = Orientation.Vertical,
+                state = rememberDraggableState { delta ->
+                    coroutineScope.launch {
+                        scrollState.scrollBy(-delta)
+                    }
+                })
+        ) {
 
-        item(span = { GridItemSpan(cols) }) {
-            Column {
-                SearchBar(
-                    modifier = Modifier.fillMaxWidth(),
-                    query = "",
-                    active = false,
-                    onActiveChange = {},
-                    onQueryChange = {},
-                    onSearch = {},
-                    leadingIcon = {
-                        Icon(
-                            imageVector = Icons.Default.Search,
-                            contentDescription = "Search"
-                        )
-                    },
-                    placeholder = { Text("Search Products") }
-                ) {}
-                Spacer(modifier = Modifier.height(16.dp))
+            item(span = { GridItemSpan(cols) }) {
+                Column {
+                    SearchBar(
+                        modifier = Modifier.fillMaxWidth(),
+                        query = "",
+                        active = false,
+                        onActiveChange = {},
+                        onQueryChange = {},
+                        onSearch = {},
+                        leadingIcon = {
+                            Icon(
+                                imageVector = Icons.Default.Search,
+                                contentDescription = "Search"
+                            )
+                        },
+                        placeholder = { Text("Search Products") }
+                    ) {}
+                    Spacer(modifier = Modifier.height(16.dp))
+                }
+
             }
 
-        }
 
+            items(
+                items = products.value.items,
+                key = { product -> product.id.toString() }) { product ->
 
-        items(
-            items = products.value.items,
-            key = { product -> product.id.toString() }) { product ->
-
-            Card(
-                shape = RoundedCornerShape(15.dp),
-                modifier = Modifier.padding(8.dp).fillMaxWidth().clickable {
-                    onItemClicked(product)
-                },
-                elevation = 2.dp
-            ) {
-                Column(
-                    verticalArrangement = Arrangement.Center,
-                    horizontalAlignment = Alignment.CenterHorizontally
+                Card(
+                    shape = RoundedCornerShape(15.dp),
+                    modifier = Modifier.padding(8.dp).fillMaxWidth().clickable {
+                        onItemClicked(product)
+                    },
+                    elevation = CardDefaults.elevatedCardElevation(2.dp)
                 ) {
-                    val painter = rememberImagePainter(url = product.image.toString())
-                    Image(
-                        painter,
-                        modifier = Modifier.height(130.dp).padding(8.dp),
-                        contentDescription = product.title
-                    )
-                    Box(
-                        modifier = Modifier.fillMaxWidth(),
-                        contentAlignment = Alignment.CenterStart
+                    Column(
+                        verticalArrangement = Arrangement.Center,
+                        horizontalAlignment = Alignment.CenterHorizontally
                     ) {
-                        Text(
-                            product.title.toString(),
-                            textAlign = TextAlign.Start,
-                            maxLines = 2,
-                            overflow = TextOverflow.Ellipsis,
-                            modifier = Modifier.padding(horizontal = 16.dp)
-                                .heightIn(min = 40.dp)
+                        val painter = rememberImagePainter(url = product.image.toString())
+                        Image(
+                            painter,
+                            modifier = Modifier.height(130.dp).padding(8.dp),
+                            contentDescription = product.title
                         )
-                    }
-                    Spacer(modifier = Modifier.height(8.dp))
-                    Box(
-                        modifier = Modifier.fillMaxWidth(),
-                        contentAlignment = Alignment.CenterStart
-                    ) {
-                        Text(
-                            "${product.price.toString()} INR ",
-                            textAlign = TextAlign.Start,
-                            maxLines = 2,
-                            overflow = TextOverflow.Ellipsis,
-                            modifier = Modifier.wrapContentWidth()
-                                .padding(horizontal = 16.dp).heightIn(min = 40.dp)
-                        )
+                        Box(
+                            modifier = Modifier.fillMaxWidth(),
+                            contentAlignment = Alignment.CenterStart
+                        ) {
+                            Text(
+                                product.title.toString(),
+                                textAlign = TextAlign.Start,
+                                maxLines = 2,
+                                overflow = TextOverflow.Ellipsis,
+                                modifier = Modifier.padding(horizontal = 16.dp)
+                                    .heightIn(min = 40.dp)
+                            )
+                        }
+                        Spacer(modifier = Modifier.height(8.dp))
+                        Box(
+                            modifier = Modifier.fillMaxWidth(),
+                            contentAlignment = Alignment.CenterStart
+                        ) {
+                            Text(
+                                "${product.price.toString()} INR ",
+                                textAlign = TextAlign.Start,
+                                maxLines = 2,
+                                overflow = TextOverflow.Ellipsis,
+                                modifier = Modifier.wrapContentWidth()
+                                    .padding(horizontal = 16.dp).heightIn(min = 40.dp)
+                            )
+                        }
                     }
                 }
             }
         }
+
     }
+
 }
