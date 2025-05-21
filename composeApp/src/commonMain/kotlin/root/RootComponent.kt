@@ -1,7 +1,6 @@
 package root
 
 import HomeRepository
-import HomeViewModel
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.router.stack.ChildStack
 import com.arkivanov.decompose.router.stack.StackNavigation

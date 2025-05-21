@@ -32,11 +32,11 @@ fun MainViewController(rootComponent: RootComponent) = ComposeUIViewController {
     ) {
 //        val lifecycle = LifecycleRegistry()
 //        lifecycle.subscribe(LifecycleCallbacksImpl())
-//        val homeViewModel = HomeViewModel()
+//        val homeRepository = HomeRepository()
 //        val root =
 //            DefaultRootComponent(
 //                componentContext = DefaultComponentContext(LifecycleRegistry()),
-//                homeViewModel
+//                homeRepository
 //            )
         RootContent(rootComponent, modifier = Modifier)
     }
