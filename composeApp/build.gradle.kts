@@ -18,7 +18,6 @@ plugins {
 
 kotlin {
     androidTarget {
-        @OptIn(ExperimentalKotlinGradlePluginApi::class)
         compilerOptions {
             jvmTarget.set(JvmTarget.JVM_1_8)
             freeCompilerArgs.add("-opt-in=kotlin.RequiresOptIn")
@@ -35,7 +34,7 @@ kotlin {
 
     //Step1
     js(IR) {
-        moduleName = "KmpApp2"
+        outputModuleName = "KmpApp2"
         browser() {
 
             //Tool bundler for converting kotlin code to js code
