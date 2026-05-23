@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import ComposeApp
+import Shared
 
 
 private var _koin: Koin_coreKoin? = nil

@@ -1,6 +1,6 @@
 import UIKit
 import SwiftUI
-import ComposeApp
+import Shared
 
 struct ComposeView: UIViewControllerRepresentable {
     
@@ -18,6 +18,7 @@ struct ContentView: View {
     
     var body: some View {
         ComposeView(rootComponet: rootComponet)
+                .edgesIgnoringSafeArea(.all) // for full screen ui
                 .ignoresSafeArea(.keyboard) // Compose has own keyboard handler
     }
 }
